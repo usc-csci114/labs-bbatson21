@@ -44,3 +44,28 @@ std::vector<Point> plotLine(Point start, Point end)
 	}
 	return line;
 }
+
+ColorImage::ColorImage(uint32_t xdim, uint32_t ydim){
+    //need to initialize vector to make 2 dimensions
+    data.resize(ydim); 
+    for(size_t i = 0; i < data.size(); ++i){ //better practice to use ++i
+        data[i].resize(xdim); 
+    }
+}
+
+void ColorImage::setPixel(ColorPixel p, uint32_t x, uint32_t y){
+	uint32_t ysize = data.size(); 
+	uint32_t xsize = data[0].size(); 
+	if(x < xsize && y < ysize){
+		data[y][x] = p; 
+	}
+}
+
+ColorPixel ColorImage::getPixel(uint32_t x, uint32_t y){
+	uint32_t ysize = data.size(); 
+	uint32_t xsize = data[0].size(); 
+	if(x < xsize && y < ysize){
+		return data[y][x]; 
+	}
+	throw std::range_error("bad size on getPixel"); 
+}

@@ -7,5 +7,6 @@ using namespace std;
 int main(int argc, char* argv[])
 {
 	//use the structs/classes you defined in drawing.h to implement the program in this file
+	ColorImage test(100, 100); 
 	
 }
