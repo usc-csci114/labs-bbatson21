@@ -26,12 +26,18 @@ private:
 template <typename T>
 ArrayList<T>::ArrayList()
 {
-	
+	data = new T(4); 
+	m_capacity = 4; 
+	m_size = 4; 
 }
 
 template <typename T>
 void ArrayList<T>::append(T v)
 {
+	if(m_size > m_capacity){
+		resize(); 
+		data[m_size] = T v; 
+	}
 
 }
 

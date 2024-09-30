@@ -69,3 +69,55 @@ ColorPixel ColorImage::getPixel(uint32_t x, uint32_t y){
 	}
 	throw std::range_error("bad size on getPixel"); 
 }
+
+void ColorImage::render(string filename){
+//helppp
+}
+
+drawing::drawing(){
+	//initialize lines? 
+}
+
+void drawing::parse(string filename){
+	int xdim, ydim; 
+	ifstream ifile(filename); 
+	//check for errors 
+	if(ifile.fail()){
+		cout << "Could not open file" << endl; 
+	}
+	else{
+		string line; 
+		getline(ifile, line); 
+		stringstream ss(line)
+		ss >> xdim >> ydim; 
+		image(xdim, ydim); 
+		string line2; 
+		int x1, y1, x2, y2; 
+		int r, g, b; 
+		while(getline(ifile, line2)){
+			stringstream ss2(line2); 
+			ss2 >> x1 >> y1 >> x2 >> y2 >> r >> g >> b; 
+			Point p1; 
+			Point p2; 
+			ColorPixel col; 
+			Line l; 
+			p1.x = x1; 
+			p1.y = y1; 
+			p2.x = x2; 
+			p2.y = y2; 
+			col.red = r; 
+			col.green = g; 
+			col.blue = b; 
+			l.start = p1; 
+			l.end = p2; 
+			l.c = col; 
+			lines.push_back(l); 
+		}
+	}
+
+	
+}
+
+void drawing::draw(){
+	//how to use given function 
+}

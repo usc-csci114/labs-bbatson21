@@ -32,6 +32,7 @@ bool PointInTriangle(Point p, Point tri[3])
 class Shape {
 public:
 	Shape(Color c);
+	~Shape(); 
 	void draw(uint8_t*** image, uint32_t h, uint32_t w);
 	virtual bool inside(uint32_t x, uint32_t y) = 0;
 	virtual BoundingBox getBoundingBox() = 0;
@@ -43,11 +44,13 @@ private:
 class Triangle : public Shape {
 public:
 	//What data does the constructor need?
-	Triangle(/* ?? */);
+	Triangle(Point t[3], Color c);
+	~Triangle(); 
 	bool inside(uint32_t x, uint32_t y); //we'll give you this code
 	BoundingBox getBoundingBox(); //how do you get the bounding box for a triangle?
 private:
 	//what data structures do we need to describe a triangle?
+	Point m_tri[3]; 
 };
 
 //Now follow this pattern and create a derived class for the Circle and Rectangle
