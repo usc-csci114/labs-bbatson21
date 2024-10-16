@@ -34,7 +34,7 @@ struct Line {
 
 class Drawing {
 	public:
-		Drawing();
+		Drawing(); 
 		void parse(string filename);
 		void draw();
 		void write(string filename);

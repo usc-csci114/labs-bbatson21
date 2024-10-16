@@ -1,15 +1,16 @@
 #include <iostream>
 #include <cmath>
 #include <vector>
-
+#include <fstream>
+#include <sstream>
 #include "bmplib.h"
 #include "drawing.h"
 
 //implement your classes in this file
 //Point is given for the line drawing algorithm
-struct Point {
-	double x, y;
-};
+//struct Point {
+	//double x, y;
+//};
 
 //adapted from https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
 std::vector<Point> plotLine(Point start, Point end)
@@ -71,14 +72,25 @@ ColorPixel ColorImage::getPixel(uint32_t x, uint32_t y){
 }
 
 void ColorImage::render(string filename){
-//helppp
+	size_t ydim = data.size(); 
+	size_t xdim = data[0].size(); 
+	uint8_t*** image = new uint8_t**[data.size()]; 
+	for(int i=0; i < data.size(); i++){
+		image[i] = new uint8_t*[xdim]; 
+		for(int j=0; j<xdim; j++){
+			image[i][j] = new uint8_t[3]; 
+			image[i][j][R] = data[i][j].red; 
+			image[i][j][G] = data[i][j].green; 
+			image[i][j][B] = data[i][j].blue; 
+		}
+	}
+	writeRGBBMP(filename.c_str(), image, ydim, xdim); 
 }
 
-drawing::drawing(){
-	//initialize lines? 
-}
+Drawing::Drawing() : image(0, 0) {}
+  
 
-void drawing::parse(string filename){
+void Drawing::parse(string filename){
 	int xdim, ydim; 
 	ifstream ifile(filename); 
 	//check for errors 
@@ -88,9 +100,9 @@ void drawing::parse(string filename){
 	else{
 		string line; 
 		getline(ifile, line); 
-		stringstream ss(line)
+		stringstream ss(line);
 		ss >> xdim >> ydim; 
-		image(xdim, ydim); 
+		image = ColorImage(xdim, ydim); 
 		string line2; 
 		int x1, y1, x2, y2; 
 		int r, g, b; 
@@ -118,6 +130,21 @@ void drawing::parse(string filename){
 	
 }
 
-void drawing::draw(){
+void Drawing::draw(){
 	//how to use given function 
+	//goes through vector of lines, gives to line drawing algorithm (plotline), gives back vector of points, set x y coords to color
+	for(int i=0; i < lines.size(); i++){
+		vector<Point> line_; 
+		line_ = plotLine(lines[i].start, lines[i].end); //returns vector of 2 points (line)
+		for(int j=0; j < line_.size(); j++){
+			ColorPixel c = lines[i].c; 
+			image.setPixel(c, line_[j].x, line_[j].y); 
+		}
+	}
 }
+
+void Drawing::write(string filename){
+	image.render(filename); 
+}
+
+ 

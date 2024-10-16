@@ -17,17 +17,7 @@ struct BoundingBox {
 	Point ul, br;
 };
 
-bool PointInTriangle(Point p, Point tri[3])
-{
-	int s = (tri[0].x - tri[2].x) * (p.y - tri[2].y) - (tri[0].y - tri[2].y) * (p.x - tri[2].x);
-	int t = (tri[1].x - tri[0].x) * (p.y - tri[0].y) - (tri[1].y - tri[0].y) * (p.x - tri[0].x);
-
-	if ((s < 0) != (t < 0) && s != 0 && t != 0)
-		return false;
-
-	int d = (tri[2].x - tri[1].x) * (p.y - tri[1].y) - (tri[2].y - tri[1].y) * (p.x - tri[1].x);
-	return d == 0 || (d < 0) == (s + t <= 0);
-}
+bool PointInTriangle(Point p, Point tri[3]); 
 
 class Shape {
 public:
@@ -54,5 +44,28 @@ private:
 };
 
 //Now follow this pattern and create a derived class for the Circle and Rectangle
+
+class Circle : public Shape{
+	public: 
+		Circle(Point center, uint32_t r, Color c); 
+		~Circle(); 
+		bool inside(uint32_t x, uint32_t y);
+		BoundingBox getBoundingBox(); 
+	private: 
+		Point m_center; 
+		uint32_t m_radius; 
+}; 
+
+class Rectangle : public Shape{
+	public: 
+		Rectangle(uint32_t length, uint32_t width, Point center, Color c); 
+		~Rectangle(); 
+		bool inside(uint32_t x, uint32_t y); 
+		BoundingBox getBoundingBox(); 
+	private:
+		Point m_center; 
+		uint32_t m_l; 
+		uint32_t m_w; 
+};
 
 #endif
