@@ -11,11 +11,11 @@ int main(){
 	{
 		vector<int> v;
 		v.resize(size*i);
-		v.reserve(2*size*i);
+		v.reserve(2*size*i); 
 		const auto start = std::chrono::steady_clock::now();
-		v.insert(v.begin(),42);
+		v.insert(v.begin(),42);  
 		const auto end = std::chrono::steady_clock::now();
 		const std::chrono::duration<double> diff = end - start;
-		cout << v.size() << " " << diff.count() << endl;
+		cout << v.size() << " " << diff.count() << endl; 
 	}	
 }
