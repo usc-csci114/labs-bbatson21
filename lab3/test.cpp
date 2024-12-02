@@ -1,6 +1,8 @@
 #include <iostream>
 #include <iomanip>
 #include "ArrayList.h"
+#include "LinkedList.h"
+#include "List.h"
 
 using namespace std;
 
@@ -44,5 +46,5 @@ int main(int argc, char* argv[])
 	
 	list.remove(list.size()/2);
 	
-	printList<int>(list);
+	printList<int>(list); 
 }
