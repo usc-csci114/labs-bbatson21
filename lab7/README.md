@@ -10,9 +10,10 @@ brew install matplotplusplus
 ```
 
 Once installed put `#include <matplot/matplot.h>` in the includes section of your .cpp files. Then you can compile with:
-
+clang++ -std=c++17 -I/opt/homebrew/include/ -L /opt/homebrew/lib -l matplot task1.cpp -o task1 
 ```bash
-clang++ -std=c++17 -I/opt/homebrew/include/ -L /opt/homebrew/lib -l matplot program.cpp -o program
+
+
 ```
 Where `program.cpp` is your code and `program` is the output executable.
 
